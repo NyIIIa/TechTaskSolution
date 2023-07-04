@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTask.WebApi", "TechTask.WebApi\TechTask.WebApi.csproj", "{CE5B820A-505F-4B33-9F9F-74B4454AAA87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTask.Client", "TechTask.Client\TechTask.Client.csproj", "{82F207E7-3E7F-487D-8ECD-9CCED119D225}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE5B820A-505F-4B33-9F9F-74B4454AAA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE5B820A-505F-4B33-9F9F-74B4454AAA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE5B820A-505F-4B33-9F9F-74B4454AAA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE5B820A-505F-4B33-9F9F-74B4454AAA87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82F207E7-3E7F-487D-8ECD-9CCED119D225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F207E7-3E7F-487D-8ECD-9CCED119D225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F207E7-3E7F-487D-8ECD-9CCED119D225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F207E7-3E7F-487D-8ECD-9CCED119D225}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
