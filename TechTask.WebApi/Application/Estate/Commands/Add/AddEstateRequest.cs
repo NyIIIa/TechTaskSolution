@@ -1,5 +1,4 @@
 using MediatR;
-using TechTask.WebApi.Application.User.Commands.Add;
 using TechTask.WebApi.Domain.Enums;
 
 namespace TechTask.WebApi.Application.Estate.Commands.Add;

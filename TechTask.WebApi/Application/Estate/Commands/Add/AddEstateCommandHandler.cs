@@ -55,7 +55,7 @@ public class AddEstateCommandHandler : IRequestHandler<AddEstateRequest, AddEsta
         await _dbContext.Estates.AddAsync(estate, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        await _userEstateManager.UpdateUserSumEstatesAsync(user.Name);
+        await _userEstateManager.UpdateUserSumEstatesAsync(user.Name, cancellationToken);
 
         return new AddEstateResponse(estate.Id);
     }

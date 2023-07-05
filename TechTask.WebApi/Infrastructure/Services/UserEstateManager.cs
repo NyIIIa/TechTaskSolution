@@ -14,11 +14,11 @@ public class UserEstateManager : IUserEstateManager
         _dbContext = dbContext;
     }
     
-    public async Task UpdateUserSumEstatesAsync(string userName)
+    public async Task UpdateUserSumEstatesAsync(string userName, CancellationToken cancellationToken)
     {
         var user = await _dbContext.Users
             .Include(u => u.Estates)
-            .FirstOrDefaultAsync(u => u.Name == userName);
+            .FirstOrDefaultAsync(u => u.Name == userName, cancellationToken);
         if (user is null)
         {
             // throw new Exception("Impossible calculate user's initial and current sum of estates, because user name was not found");
@@ -29,7 +29,8 @@ public class UserEstateManager : IUserEstateManager
         user.CurrentSumOfEstates = CalculateCurrentSumOfEstates(user.Estates);
 
         _dbContext.Users.Update(user);
-        await _dbContext.SaveChangesAsync(default);
+        Console.WriteLine(user.InitialSumOfEstates);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
     
     private decimal CalculateInitialSumOfEstates(IEnumerable<Domain.Entities.Estate> estates)

@@ -2,5 +2,5 @@ namespace TechTask.WebApi.Infrastructure.Interfaces;
 
 public interface IUserEstateManager
 {
-    Task UpdateUserSumEstatesAsync(string userName);
+    Task UpdateUserSumEstatesAsync(string userName, CancellationToken cancellationToken);
 }

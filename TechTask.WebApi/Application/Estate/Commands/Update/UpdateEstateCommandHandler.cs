@@ -29,8 +29,8 @@ public class UpdateEstateCommandHandler : IRequestHandler<UpdateEstateRequest, U
             throw new EstateTitleNotFoundException("The estate with current title doesn't exist!");
         }
 
-        var isNewTitleAvailable = await _dbContext.Estates.AnyAsync(e => e.Title == request.NewTitle, cancellationToken);
-        if (!isNewTitleAvailable)
+        var isNewTitleExists = await _dbContext.Estates.AnyAsync(e => e.Title == request.NewTitle, cancellationToken);
+        if (isNewTitleExists)
         {
             // throw new Exception("The estate with new title already exist! Please choose another new title!");
             throw new ConflictEstateTitleException("The estate with new title already exist! Please choose another new title!");
@@ -51,7 +51,7 @@ public class UpdateEstateCommandHandler : IRequestHandler<UpdateEstateRequest, U
         _dbContext.Estates.Update(estateFromDb);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        await _userEstateManager.UpdateUserSumEstatesAsync(estateFromDb.User.Name);
+        await _userEstateManager.UpdateUserSumEstatesAsync(estateFromDb.User.Name, cancellationToken);
 
         return new UpdateEstateResponse(true);
     }
