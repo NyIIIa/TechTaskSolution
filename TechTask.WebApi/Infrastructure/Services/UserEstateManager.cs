@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TechTask.WebApi.Domain.Exceptions.User;
 using TechTask.WebApi.Infrastructure.Interfaces;
 using TechTask.WebApi.Persistence;
 
@@ -20,7 +21,8 @@ public class UserEstateManager : IUserEstateManager
             .FirstOrDefaultAsync(u => u.Name == userName);
         if (user is null)
         {
-            throw new Exception("Impossible calculate user's initial and current sum of estates, because user name was not found");
+            // throw new Exception("Impossible calculate user's initial and current sum of estates, because user name was not found");
+            throw new UserNameNotFoundException("Impossible calculate user's initial and current sum of estates, because user name was not found");
         }
         
         user.InitialSumOfEstates = CalculateInitialSumOfEstates(user.Estates);

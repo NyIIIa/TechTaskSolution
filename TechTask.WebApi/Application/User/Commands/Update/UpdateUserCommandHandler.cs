@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TechTask.WebApi.Domain.Exceptions.User;
 using TechTask.WebApi.Persistence;
 
 namespace TechTask.WebApi.Application.User.Commands.Update;
@@ -19,14 +20,16 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserRequest, Updat
 
         if (isUserWithNewNameExists)
         {
-            throw new Exception("The user with new name already exists! Please choose another name!");
+            // throw new Exception("The user with new name already exists! Please choose another name!");
+            throw new ConflictUserNameException("The user with new name already exists! Please choose another name!");
         }
         
         var userFromDb = await _dbContext.Users.FirstOrDefaultAsync(u => u.Name == request.CurrentName, cancellationToken);
 
         if (userFromDb is null)
         {
-            throw new Exception("The user with current title was not found!");
+            // throw new Exception("The user with current title was not found!");
+            throw new UserNameNotFoundException("The user with current title was not found!");
         }
 
         userFromDb.Name = request.NewName;

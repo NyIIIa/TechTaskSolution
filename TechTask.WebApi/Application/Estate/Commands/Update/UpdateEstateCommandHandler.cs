@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TechTask.WebApi.Domain.Exceptions.Estate;
 using TechTask.WebApi.Infrastructure.Interfaces;
 using TechTask.WebApi.Persistence;
 
@@ -24,13 +25,15 @@ public class UpdateEstateCommandHandler : IRequestHandler<UpdateEstateRequest, U
                 .FirstOrDefaultAsync(e => e.Title == request.CurrentTitle, cancellationToken);
         if (estateFromDb is null)
         {
-            throw new Exception("The estate with current title doesn't exist!");
+            // throw new Exception("The estate with current title doesn't exist!");
+            throw new EstateTitleNotFoundException("The estate with current title doesn't exist!");
         }
 
         var isNewTitleAvailable = await _dbContext.Estates.AnyAsync(e => e.Title == request.NewTitle, cancellationToken);
         if (!isNewTitleAvailable)
         {
-            throw new Exception("The estate with new title already exist! Please choose another new title!");
+            // throw new Exception("The estate with new title already exist! Please choose another new title!");
+            throw new ConflictEstateTitleException("The estate with new title already exist! Please choose another new title!");
         }
         var newEstateCurrentPrice = Domain.Entities.Estate.CalculateCurrentPrice(request.NewInitialPrice,
             request.NewDateOfPurchase, request.NewPeriodOfPriceReduction);

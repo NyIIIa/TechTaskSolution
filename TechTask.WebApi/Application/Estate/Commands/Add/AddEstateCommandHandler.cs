@@ -1,5 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TechTask.WebApi.Domain.Exceptions.Estate;
+using TechTask.WebApi.Domain.Exceptions.User;
 using TechTask.WebApi.Infrastructure.Interfaces;
 using TechTask.WebApi.Persistence;
 
@@ -21,7 +23,8 @@ public class AddEstateCommandHandler : IRequestHandler<AddEstateRequest, AddEsta
         var isEstateTitleExists = await _dbContext.Estates.AnyAsync(e => e.Title == request.Title, cancellationToken);
         if (isEstateTitleExists)
         {
-            throw new Exception("The estate with specified title already exists!");
+            // throw new Exception("The estate with specified title already exists!");
+            throw new ConflictEstateTitleException("The estate with specified title already exists!");
         }
 
         var user = await _dbContext.Users
@@ -29,7 +32,8 @@ public class AddEstateCommandHandler : IRequestHandler<AddEstateRequest, AddEsta
             .FirstOrDefaultAsync(u => u.Name == request.UserName, cancellationToken);
         if (user is null)
         {
-            throw new Exception("The owner(user) with specified name doesn't exists!");
+            // throw new Exception("The owner(user) with specified name doesn't exists!");
+            throw new UserNameNotFoundException("The owner(user) with specified name doesn't exists!");
         }
 
         var estateCurrentPrice = Domain.Entities.Estate.CalculateCurrentPrice(request.InitialPrice,
