@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using TechTask.WebApi.Infrastructure.Interfaces;
+using TechTask.WebApi.Infrastructure.Services;
 using TechTask.WebApi.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IUserEstateManager, UserEstateManager>();
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

@@ -9,4 +9,5 @@ public class User
     public decimal InitialSumOfEstates { get; set; }
     public decimal CurrentSumOfEstates { get; set; }
     public IEnumerable<Estate> Estates { get; set; } = null!;
+    
 }
