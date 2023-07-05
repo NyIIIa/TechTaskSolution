@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TechTask.WebApi.Domain.Exceptions.User;
 using TechTask.WebApi.Persistence;
 
 namespace TechTask.WebApi.Application.User.Commands.Add;
@@ -19,7 +20,8 @@ public class AddUserCommandHandler : IRequestHandler<AddUserRequest, AddUserResp
 
         if (isUserExists)
         {
-            throw new Exception("The user with specified name already exists!");
+            // throw new Exception("The user with specified name already exists!");
+            throw new ConflictUserNameException("The user with specified name already exists!");
         }
 
         var user = new Domain.Entities.User()
