@@ -1,7 +1,5 @@
-using System.Globalization;
-using Microsoft.EntityFrameworkCore;
+ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using TechTask.WebApi.Infrastructure.Interfaces;
 using TechTask.WebApi.Infrastructure.Services;
 using TechTask.WebApi.Persistence;
@@ -26,6 +24,13 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+{
+    builder.WithOrigins("http://localhost:5188")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("MyPolicy");
 app.UseExceptionHandler("/error");
 app.UseHttpsRedirection();
 app.MapControllers();
