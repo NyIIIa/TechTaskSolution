@@ -42,10 +42,10 @@ public class EstateController : ControllerBase
         return Ok(getAllEstatesResponse);
     }
     
-    [HttpGet("getById")]
-    public async Task<IActionResult> GetById([FromQuery] GetEstateByIdRequest getEstateByIdRequest)
+    [HttpGet("getById/{estateId}")]
+    public async Task<IActionResult> GetById(int estateId)
     {
-        var getEstateByIdResponse = await _sender.Send(getEstateByIdRequest);
+        var getEstateByIdResponse = await _sender.Send(new GetEstateByIdRequest(estateId));
 
         return Ok(getEstateByIdResponse);
     }
