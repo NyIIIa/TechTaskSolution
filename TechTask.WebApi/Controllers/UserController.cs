@@ -42,10 +42,10 @@ public class UserController : ControllerBase
         return Ok(getAllUsersResponse);
     }
 
-    [HttpGet("getById")]
-    public async Task<IActionResult> GetById([FromQuery] GetUserByIdRequest getUserByIdRequest)
+    [HttpGet("getById/{userId}")]
+    public async Task<IActionResult> GetById(int userId)
     {
-        var getUserByIdResponse = await _sender.Send(getUserByIdRequest);
+        var getUserByIdResponse = await _sender.Send(new GetUserByIdRequest(userId));
 
         return Ok(getUserByIdResponse);
     }

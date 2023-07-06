@@ -1,0 +1,44 @@
+@page "/updateUser/{Id}"
+<h3>UpdateUser</h3>
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                 <label for="CurrentName" class="control-label"> Current name</label>
+                <input readonly form="CurrentName" class="form-control" @bind="@UpdateUserRequest.CurrentName"/>
+            </div>
+            <div class="form-group">
+                <label for="NewName" class="control-label"> New name</label>
+                <input for="NewName" class="form-control"  @bind="@UpdateUserRequest.NewName" />
+            </div>
+            <div class="form-group">
+                <label for="NewEmailAddress" class="control-label"> New email address</label>
+                <input for="NewEmailAddress" class="form-control" @bind="@UpdateUserRequest.NewEmail" />
+            </div>
+            <div class="form-group">
+                <label for="NewPhoneNumber" class="control-label"> New phone number</label>
+                <input for="NewPhoneNumber" class="form-control" @bind="@UpdateUserRequest.NewPhoneNumber" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@Update" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code{
+
+    protected async override Task OnInitializedAsync()
+    {
+        Data.User user = await Task.Run(() => UserService.GetById(Convert.ToInt32(Id)));
+        UpdateUserRequest.CurrentName = user.Name;
+    }
+
+}
