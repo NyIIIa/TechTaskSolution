@@ -1,0 +1,54 @@
+@page "/estate/createestate"
+@using TechTask.Client.Data.Enums
+<h3>Create estate</h3>
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Title" class="control-label">Title</label>
+                <input for="Title" class="form-control"  @bind="@AddEstateRequest.Title" />
+            </div>
+            <div class="form-group">
+                <label for="UserName" class="control-label">Owner(user name)</label>
+                <input for="UserName" class="form-control"  @bind="@AddEstateRequest.UserName" />
+            </div>
+            <div class="form-group">
+                <label for="Type" class="control-label">Type</label>
+                <select class="form-select" aria-label="Default select example" @bind="@AddEstateRequest.Type">
+                    <option disabled selected>Select your estate type</option>
+                    <option value="@EstateType.Apartment">Apartment</option>
+                    <option value="@EstateType.Car">Car</option>
+                    <option value="@EstateType.Motorcycle">Motorcycle</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="DateOfPurchase" class="control-label">Date of purchase</label>
+                <br/>
+                <input type="datetime-local" for="DateOfPurchase"
+                       min="1930-06-07T00:00" max="2050-06-14T00:00" @bind="@AddEstateRequest.DateOfPurchase">
+            </div>
+            <div class="form-group">
+                <label for="InitialPrice" class="control-label">Initial price</label>
+                <input for="InitialPrice" class="form-control"  @bind="@AddEstateRequest.InitialPrice" />
+            </div>
+            <div class="form-group">
+                <label for="PeriodOfPriceReduction" class="control-label">Period of price reduction</label>
+                <select class="form-select" aria-label="Default select example" @bind="@AddEstateRequest.PeriodOfPriceReduction">
+                    <option disabled selected>Select period of price reduction</option>
+                    <option value="@Period.Week">Week</option>
+                    <option value="@Period.Month">Month</option>
+                    <option value="@Period.Year">Year</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateEstate" value="Save"/>
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel"/>
+            </div>
+        </div>
+    </div>
+</form>

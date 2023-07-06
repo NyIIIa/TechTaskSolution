@@ -1,0 +1,43 @@
+@page "/estates"
+
+<nav class="navbar navbar-light justify-content-between">
+  <a class="navbar-brand">Estate data</a>
+  <NavLink href="/estate/createestate" class="btn btn-sm btn-success mb-2">Add estate</NavLink>
+</nav>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Type</th>
+      <th scope="col">DateOfPurchase</th>
+      <th scope="col">InitialPrice</th>
+      <th scope="col">PeriodOfPriceReduction</th>
+      <th scope="col">PriceReduction</th>
+      <th scope="col">CurrentPrice</th>
+      <th scope="col">UserName</th>
+      <th scope="col">Manage</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach (var estate in _estates)
+  {
+    <tr>
+      <th scope="row">@estate.Id</th>
+      <td>@estate.Title</td>
+      <td>@estate.Type</td>
+      <td>@estate.DateOfPurchase</td>
+      <td>@estate.InitialPrice</td>
+      <td>@estate.PeriodOfPriceReduction</td>
+      <td>@estate.PriceReduction</td>
+      <td>@estate.CurrentPrice</td>
+      <td>@estate.UserName</td>
+      <td><a href="/updateEstate/@estate.Id"><span class="oi oi-pencil" aria-hidden="true">Edit</span></a></td>
+    </tr> 
+  }
+  </tbody>
+</table>
+
+
+

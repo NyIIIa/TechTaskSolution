@@ -1,0 +1,63 @@
+@page "/updateEstate/{Id}"
+@using TechTask.Client.Data.Enums
+
+<h3>Update estate</h3>
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="CurrentTitle" class="control-label">Current title</label>
+                <input readonly for="CurrentTitle" class="form-control"  @bind="@UpdateEstateRequest.CurrentTitle" />
+            </div>
+            <div class="form-group">
+                <label for="Title" class="control-label">New title</label>
+                <input for="Title" class="form-control" @bind="@UpdateEstateRequest.NewTitle"/>
+            </div>
+            <div class="form-group">
+                <label for="Type" class="control-label">New type</label>
+                <select class="form-select" aria-label="Default select example" @bind="@UpdateEstateRequest.NewType">
+                    <option disabled selected>Select your estate type</option>
+                    <option value="@EstateType.Apartment">Apartment</option>
+                    <option value="@EstateType.Car">Car</option>
+                    <option value="@EstateType.Motorcycle">Motorcycle</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="DateOfPurchase" class="control-label">New date of purchase</label>
+                <br/>
+                <input type="datetime-local" for="DateOfPurchase"
+                       min="1930-06-07T00:00" max="2050-06-14T00:00" @bind="@UpdateEstateRequest.NewDateOfPurchase">
+            </div>
+            <div class="form-group">
+                <label for="InitialPrice" class="control-label">New initial price</label>
+                <input for="InitialPrice" class="form-control" @bind="@UpdateEstateRequest.NewInitialPrice"/>
+            </div>
+            <div class="form-group">
+                <label for="PeriodOfPriceReduction" class="control-label">New period of price reduction</label>
+                <select class="form-select" aria-label="Default select example" @bind="@UpdateEstateRequest.NewPeriodOfPriceReduction">
+                    <option disabled selected>Select period of price reduction</option>
+                    <option value="@Period.Week">Week</option>
+                    <option value="@Period.Month">Month</option>
+                    <option value="@Period.Year">Year</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@Update" value="Update"/>
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel"/>
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    protected async override Task OnInitializedAsync()
+    {
+        Data.Estate estate = await Task.Run(() => EstateService.GetById(Convert.ToInt32(Id)));
+        UpdateEstateRequest.CurrentTitle = estate.Title;
+    }
+}
