@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TechTask.WebApi.Application.User.Commands.Add;
 using TechTask.WebApi.Application.User.Commands.Update;
 using TechTask.WebApi.Application.User.Queries.GetAll;
+using TechTask.WebApi.Application.User.Queries.GetById;
 
 namespace TechTask.WebApi.Controllers;
 
@@ -39,5 +40,13 @@ public class UserController : ControllerBase
         var getAllUsersResponse = await _sender.Send(new GetAllUsersRequest());
 
         return Ok(getAllUsersResponse);
+    }
+
+    [HttpGet("getById")]
+    public async Task<IActionResult> GetById([FromQuery] GetUserByIdRequest getUserByIdRequest)
+    {
+        var getUserByIdResponse = await _sender.Send(getUserByIdRequest);
+
+        return Ok(getUserByIdResponse);
     }
 }

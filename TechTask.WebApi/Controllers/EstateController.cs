@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TechTask.WebApi.Application.Estate.Commands.Add;
 using TechTask.WebApi.Application.Estate.Commands.Update;
 using TechTask.WebApi.Application.Estate.Queries.GetAll;
+using TechTask.WebApi.Application.Estate.Queries.GetById;
 
 namespace TechTask.WebApi.Controllers;
 
@@ -39,5 +40,13 @@ public class EstateController : ControllerBase
         var getAllEstatesResponse = await _sender.Send(new GetAllEstatesRequest());
 
         return Ok(getAllEstatesResponse);
+    }
+    
+    [HttpGet("getById")]
+    public async Task<IActionResult> GetById([FromQuery] GetEstateByIdRequest getEstateByIdRequest)
+    {
+        var getEstateByIdResponse = await _sender.Send(getEstateByIdRequest);
+
+        return Ok(getEstateByIdResponse);
     }
 }
